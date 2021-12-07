@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,26 +10,44 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
-    
+ 
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th><th>First Name</th><th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody id="tblStudent">
+        </tbody>
+    </table>
 </body>
-    <button id="btnJSON1"> JSON 1</button>
 <script>
-    function loadJSON(){
-        var url = "https://cj-android-demon.herokuapp.com/json2.php"
-        $.get(url, (data, status)=>{
+ 
+function loadJSON(){
+    var url = "https://cj-android-demon.herokuapp.com/json2.php";
+
+    $.getJSON(url)
+        .done((data)=>{
             console.log(data);
-            var jData = JSON.parse(data);
-            console.log(jData.fname)
-            console.log(jData.lname)
-            $("#fname").text(jData.fname)
-            $("#lname").text(jData.lname)
+            $each(data, (k, item)=>{
+            console.log(k);
+            console.log(item);
+            var line = "<tr>";
+                line = "<td>" + (k+1) + "</td>";
+                line = "<td>" + item.fname + "</td>";
+                line = "<td>"+ item.lname + "</td>";
+                line = "</tr>";
         });
+            })
 
-    }
-   $(()=>{
-        $("#btnJSON1").click(loadJSON);
-    });
+        .fail((xhr, status, err)=>{
 
-    });
+        })
+            }
+
+        $(()=>{
+            loadJSON();
+        });
 </script>
+
 </html>
