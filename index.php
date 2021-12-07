@@ -37,6 +37,7 @@ function loadJSON(){
                 line = "<td>" + item.fname + "</td>";
                 line = "<td>"+ item.lname + "</td>";
                 line = "</tr>";
+                $("#tblStudent").append(line);
         });
             })
 
